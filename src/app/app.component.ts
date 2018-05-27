@@ -30,6 +30,7 @@ export class AppComponent implements AfterViewInit {
       label: 'Download sample file',
       name: 'downloadFile',
       type: 'button',
+      // parentCls: 'd-flex flex-column',
       buttonType: ButtonType.button
     },
     {
@@ -37,12 +38,14 @@ export class AppComponent implements AfterViewInit {
       label: 'File name',
       name: 'name',
       placeholder: 'Enter your name',
+      parentCls: 'd-flex flex-column',
       validation: [Validators.required, Validators.minLength(4)]
     },
     {
       label: 'Submit',
       name: 'submit',
       type: 'button',
+      parentCls: 'd-flex flex-column',
       buttonType: ButtonType.submit
     }
   ];
@@ -52,6 +55,7 @@ export class AppComponent implements AfterViewInit {
     {
       type: 'select',
       label: 'Favourite File',
+      parentCls: 'd-flex flex-column',
       name: 'file',
       options: [{
         id: 1,
@@ -66,12 +70,14 @@ export class AppComponent implements AfterViewInit {
       type: 'input',
       label: 'File name',
       name: 'name',
+      parentCls: 'd-flex flex-column',
       placeholder: 'Enter your name',
       validation: [Validators.required, Validators.minLength(4)]
     },
     {
       label: 'Submit',
       name: 'submit',
+      parentCls: 'd-flex flex-column',
       type: 'button',
       buttonType: ButtonType.submit
     }

@@ -1,4 +1,4 @@
-<div class="d-flex flex-column" [formGroup]="group">
+<div [ngClass]="config.parentCls" [formGroup]="group">
   <mat-form-field>
     <input matInput [placeholder]="config.label" [formControlName]="config.name">
   </mat-form-field>

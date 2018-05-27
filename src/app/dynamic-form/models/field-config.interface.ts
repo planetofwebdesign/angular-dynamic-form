@@ -8,6 +8,7 @@ export interface FieldConfig {
   placeholder?: string;
   type: string;
   buttonType?: ButtonType;
+  parentCls?: any;
   validation?: ValidatorFn[];
   value?: any;
 }

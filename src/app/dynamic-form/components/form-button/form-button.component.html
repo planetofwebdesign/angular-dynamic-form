@@ -1,4 +1,4 @@
-<div class="d-flex flex-column" [formGroup]="group">
+<div [ngClass]="config.parentCls" [formGroup]="group" #parent>
   <button mat-raised-button color="primary" 
     [type]="buttonType" 
     [disabled]="buttonType === 'submit' ? !group.valid : false" >

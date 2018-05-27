@@ -4,7 +4,7 @@
     <div class="col-md-4">
       <div class="card shadow">
         <div class="card-body">
-          <mat-form-field>
+          <mat-form-field class="d-flex flex-column">
             <mat-select placeholder="Choose file" #selectbox (selectionChange)="loadForm(selectbox.value)">
               <mat-option *ngFor="let file of fileTypes" [value]="file" >
                 {{ file.name }}
