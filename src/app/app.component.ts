@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { DynamicFormComponent } from './dynamic-form/container/dynamic-form/dynamic-form.component';
 import { Validators } from '@angular/forms';
 import { FieldConfig, ButtonType, SelectboxOption } from './dynamic-form/models/field-config.interface';
@@ -8,9 +8,10 @@ import { FieldConfig, ButtonType, SelectboxOption } from './dynamic-form/models/
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit {
 
   @ViewChild(DynamicFormComponent) form: DynamicFormComponent;
+  selected: SelectboxOption;
 
   constructor(private cdr: ChangeDetectorRef) { }
 
@@ -30,7 +31,7 @@ export class AppComponent implements AfterViewInit {
       label: 'Download sample file',
       name: 'downloadFile',
       type: 'button',
-      // parentCls: 'd-flex flex-column',
+      parentCls: 'mb-2',
       buttonType: ButtonType.button
     },
     {
@@ -82,6 +83,14 @@ export class AppComponent implements AfterViewInit {
       buttonType: ButtonType.submit
     }
   ];
+
+
+  ngOnInit() {
+
+    this.selected = this.fileTypes.filter(file => file.id === 2)[0];
+    this.loadForm(this.selected.id);
+  }
+
 
   ngAfterViewInit() {
     // if (this.form) {
