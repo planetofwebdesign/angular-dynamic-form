@@ -1,7 +1,7 @@
 import { Component, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { DynamicFormComponent } from './dynamic-form/container/dynamic-form/dynamic-form.component';
 import { Validators } from '@angular/forms';
-import { FieldConfig, ButtonType } from './dynamic-form/models/field-config.interface';
+import { FieldConfig, ButtonType, SelectboxOption } from './dynamic-form/models/field-config.interface';
 
 @Component({
   selector: 'app-root',
@@ -12,28 +12,62 @@ export class AppComponent implements AfterViewInit {
 
   @ViewChild(DynamicFormComponent) form: DynamicFormComponent;
 
-  constructor(private cdr: ChangeDetectorRef) {}
-  config: FieldConfig[] = [
+  constructor(private cdr: ChangeDetectorRef) { }
+
+  fileTypes: SelectboxOption[] = [
+    {
+      id: 1,
+      name: 'Excel'
+    },
+    {
+      id: 2,
+      name: 'Doc'
+    }
+  ];
+  config: FieldConfig[];
+  excelFileConfig: FieldConfig[] = [
+    {
+      label: 'Download sample file',
+      name: 'downloadFile',
+      type: 'button',
+      buttonType: ButtonType.button
+    },
     {
       type: 'input',
-      label: 'Full name',
+      label: 'File name',
       name: 'name',
       placeholder: 'Enter your name',
       validation: [Validators.required, Validators.minLength(4)]
     },
     {
+      label: 'Submit',
+      name: 'submit',
+      type: 'button',
+      buttonType: ButtonType.submit
+    }
+  ];
+
+
+  docFileConfig: FieldConfig[] = [
+    {
       type: 'select',
-      label: 'Favourite Food',
-      name: 'food',
+      label: 'Favourite File',
+      name: 'file',
       options: [{
         id: 1,
-        name: 'Pizza'
+        name: 'Exam'
       }, {
         id: 2,
-        name: 'Hot Dogs'
+        name: 'Test'
       }],
-      placeholder: 'Select an option',
+      // placeholder: 'Select an option'
       validation: [Validators.required]
+    }, {
+      type: 'input',
+      label: 'File name',
+      name: 'name',
+      placeholder: 'Enter your name',
+      validation: [Validators.required, Validators.minLength(4)]
     },
     {
       label: 'Submit',
@@ -44,21 +78,33 @@ export class AppComponent implements AfterViewInit {
   ];
 
   ngAfterViewInit() {
-    let previousValid = this.form.valid;
-    this.form.changes.subscribe(() => {
-      if (this.form.valid !== previousValid) {
-        previousValid = this.form.valid;
-        this.form.setDisabled('submit', !previousValid);
-      }
-    });
+    // if (this.form) {
+    //   let previousValid = this.form.valid;
+    //   this.form.changes.subscribe(() => {
+    //     if (this.form.valid !== previousValid) {
+    //       previousValid = this.form.valid;
+    //       this.form.setDisabled('submit', !previousValid);
+    //     }
+    //   });
 
-    this.form.setDisabled('submit', true);
-    this.form.setValue('name', 'Todd Motto');
-    this.cdr.detectChanges();
+    // }
+    // this.form.setDisabled('submit', true);
+    // this.form.setValue('name', 'Todd Motto');
+    // this.cdr.detectChanges();
   }
 
   submit(value: { [name: string]: any }) {
     console.log(value);
+  }
+
+
+  loadForm(value: any) {
+    if (value.id === 1) {
+      this.config = this.excelFileConfig;
+    } else {
+      this.config = this.docFileConfig;
+    }
+
   }
 
 

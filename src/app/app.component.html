@@ -4,9 +4,17 @@
     <div class="col-md-4">
       <div class="card shadow">
         <div class="card-body">
-          <app-dynamic-form [config]="config" #form="appDynamicForm" (submit)="submit($event)">
+          <mat-form-field>
+            <mat-select placeholder="Choose file" #selectbox (selectionChange)="loadForm(selectbox.value)">
+              <mat-option *ngFor="let file of fileTypes" [value]="file" >
+                {{ file.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <app-dynamic-form *ngIf="config" [config]="config" #form="appDynamicForm" (submit)="submit($event)">
           </app-dynamic-form>
-          {{ form.valid }} {{ form.value | json }}
+     
         </div>
       </div>
     </div>

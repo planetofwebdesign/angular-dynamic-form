@@ -1,7 +1,7 @@
 <div class="d-flex flex-column" [formGroup]="group">
   <button mat-raised-button color="primary" 
     [type]="buttonType" 
-    [disabled]="config.disabled" >
+    [disabled]="buttonType === 'submit' ? !group.valid : false" >
     {{config.label}}
   </button>
 </div>

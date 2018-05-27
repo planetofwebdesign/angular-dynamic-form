@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { FieldConfig } from '../../models/field-config.interface';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
@@ -8,7 +8,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   templateUrl: './dynamic-form.component.html',
   styleUrls: ['./dynamic-form.component.scss']
 })
-export class DynamicFormComponent implements OnInit {
+export class DynamicFormComponent implements OnInit, OnChanges {
 
   @Input() config: FieldConfig[];
   @Output() submit: EventEmitter<any>;
@@ -27,6 +27,27 @@ export class DynamicFormComponent implements OnInit {
 
     this.form = this.creatGroup();
 
+  }
+
+
+  ngOnChanges() {
+    if (this.form) {
+      this.form.reset();
+      const controls = Object.keys(this.form.controls);
+      const configControls = this.controls.map((item) => item.name);
+
+      controls
+        .filter((control) => !configControls.includes(control))
+        .forEach((control) => this.form.removeControl(control));
+
+      configControls
+        .filter((control) => !controls.includes(control))
+        .forEach((name) => {
+          const config = this.config.find((control) => control.name === name);
+          this.form.addControl(name, this.createControl(config));
+        });
+
+    }
   }
 
   creatGroup() {
